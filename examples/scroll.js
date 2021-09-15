@@ -20,7 +20,7 @@ const init = async () => {
       ).map((l) => (l === 255 ? 50 : 0));
       display.show(pixelArray);
       position = position + 1;
-      position + 11 + 11 >= matrixLength && clearInterval(interval);
+      //position + 11 + 11 >= matrixLength && clearInterval(interval);
     }, 100);
   } catch (e) {
     console.error(e);
