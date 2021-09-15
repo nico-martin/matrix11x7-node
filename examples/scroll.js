@@ -1,17 +1,8 @@
-const DisplayController = require("../src/display");
-const { matrixToArray } = require("../src/helpers");
-const fontToMatrix = require("../src/font");
+const { scrollText } = require("../index");
 
-const matrix = fontToMatrix("Hello World!");
-const pixelArray = matrixToArray(matrix).map((l) => (l === 255 ? 50 : 0));
-
-const init = async () => {
-  try {
-    const display = await DisplayController();
-    await display.show(pixelArray);
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-init();
+scrollText("Hello World", {
+  speed: 80, // optional - milliseconds between each step
+  infinite: true, // optional - wether it should stop after one run or keep running
+  font: null, // optional - the font you want to use (see src/fonts/ as an example)
+  intensity: 50, // optional - an integer between 0 an 255 (intensity)
+});
