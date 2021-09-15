@@ -1,7 +1,14 @@
 const { matrixToArray, extractColumns, mergeColumns } = require("./matrix");
 const fontToMatrix = require("./font");
 
-const fontScroller = (display, text, speed = 80, infinite = true) => {
+const fontScroller = (display, text, config) => {
+  config = {
+    speed: 80,
+    infinite: true,
+    font: null,
+    intensity: 50,
+    ...config,
+  };
   const matrix = mergeColumns(
     [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -12,7 +19,7 @@ const fontScroller = (display, text, speed = 80, infinite = true) => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
-    fontToMatrix(text)
+    fontToMatrix(text, config.font)
   );
 
   let position = 0;
@@ -21,17 +28,17 @@ const fontScroller = (display, text, speed = 80, infinite = true) => {
   const interval = setInterval(() => {
     const pixelArray = matrixToArray(
       extractColumns(matrix, position, position + 11)
-    ).map((l) => (l === 255 ? 50 : 0));
+    ).map((l) => (l === 255 ? config.intensity : 0));
     display.show(pixelArray);
     position = position + 1;
     if (position - 1 >= matrixLength) {
-      if (infinite) {
+      if (config.infinite) {
         position = 0;
       } else {
         clearInterval(interval);
       }
     }
-  }, speed);
+  }, config.speed);
 };
 
 module.exports = fontScroller;
