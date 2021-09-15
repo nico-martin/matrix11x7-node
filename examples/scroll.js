@@ -16,7 +16,7 @@ const init = async () => {
     let position = 0;
     const matrixLength = matrix[0].length;
 
-    window.setInterval(() => {
+    setInterval(() => {
       const pixelArray = matrixToArray(
         extractColumns(matrix, position, position + 11)
       ).map((l) => (l === 255 ? 50 : 0));
