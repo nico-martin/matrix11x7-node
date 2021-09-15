@@ -6,7 +6,18 @@ const {
 } = require("../src/matrix");
 const fontToMatrix = require("../src/font");
 
-const matrix = fontToMatrix("Hello World!");
+const matrix = mergeColumns(
+  [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  fontToMatrix("Hello World!")
+);
 
 const infinite = true;
 
@@ -22,7 +33,7 @@ const init = async () => {
       ).map((l) => (l === 255 ? 50 : 0));
       display.show(pixelArray);
       position = position + 1;
-      if (position - 2 >= matrixLength) {
+      if (position - 1 >= matrixLength) {
         if (infinite) {
           position = 0;
         } else {
