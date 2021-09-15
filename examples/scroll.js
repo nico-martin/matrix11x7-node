@@ -6,7 +6,7 @@ const {
 } = require("../src/matrix");
 const fontToMatrix = require("../src/font");
 
-const matrix = fontToMatrix("Hello World!");
+const matrix = fontToMatrix("Oh my good how cool is that! It works!!!");
 
 //const pixelArray = matrixToArray(matrix).map((l) => (l === 255 ? 50 : 0));
 
