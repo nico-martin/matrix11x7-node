@@ -1,46 +1,10 @@
 const DisplayController = require("../src/display");
-const {
-  matrixToArray,
-  extractColumns,
-  mergeColumns,
-} = require("../src/matrix");
-const fontToMatrix = require("../src/font");
-
-const matrix = mergeColumns(
-  [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ],
-  fontToMatrix("Hello World!")
-);
-
-const infinite = true;
+const fontScroller = require("../src/scrolling");
 
 const init = async () => {
   try {
     const display = await DisplayController();
-    let position = 0;
-    const matrixLength = matrix[0].length;
-
-    const interval = setInterval(() => {
-      const pixelArray = matrixToArray(
-        extractColumns(matrix, position, position + 11)
-      ).map((l) => (l === 255 ? 50 : 0));
-      display.show(pixelArray);
-      position = position + 1;
-      if (position - 1 >= matrixLength) {
-        if (infinite) {
-          position = 0;
-        } else {
-          clearInterval(interval);
-        }
-      }
-    }, 100);
+    fontScroller(display, "Lorem ipsum", 50);
   } catch (e) {
     console.error(e);
   }
