@@ -1,6 +1,6 @@
 const DisplayController = require("../src/display");
 const fontScroller = require("../src/scrolling");
-const font = require("../src/fonts/font3x5");
+const font = require("../src/fonts/font5x7unicode");
 
 const init = async () => {
   try {
