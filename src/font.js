@@ -7,6 +7,7 @@ module.exports = fontToMatrix = (text, font = defaultFont) => {
   text.split("").map((char) => {
     const code = char.charCodeAt(0);
     const characterMatrix = font.characters[code];
+    console.log(char, characterMatrix);
     matrix = matrix.map((row, index) => [...row, 0, ...characterMatrix[index]]);
   });
 
