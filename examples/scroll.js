@@ -20,7 +20,7 @@ const init = async () => {
       ).map((l) => (l === 255 ? 50 : 0));
       display.show(pixelArray);
       position = position + 1;
-      if (position >= matrixLength) {
+      if (position - 2 >= matrixLength) {
         clearInterval(interval);
       }
     }, 100);
