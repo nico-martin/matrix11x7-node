@@ -8,20 +8,19 @@ const fontToMatrix = require("../src/font");
 
 const matrix = fontToMatrix("Oh my good how cool is that! It works!!!");
 
-//const pixelArray = matrixToArray(matrix).map((l) => (l === 255 ? 50 : 0));
-
 const init = async () => {
   try {
     const display = await DisplayController();
     let position = 0;
     const matrixLength = matrix[0].length;
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       const pixelArray = matrixToArray(
         extractColumns(matrix, position, position + 11)
       ).map((l) => (l === 255 ? 50 : 0));
       display.show(pixelArray);
       position = position + 1;
+      position + 2 + 11 >= matrixLength && clearInterval(interval);
     }, 100);
   } catch (e) {
     console.error(e);
