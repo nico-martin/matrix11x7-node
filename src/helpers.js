@@ -7,20 +7,9 @@ const arrayToLength = (array, length, fill = 0) => {
   return array;
 };
 
-const matrixToArray = (rows, height = 7, width = 11) => {
-  const cleanSizeMatrix = arrayToLength(rows, height, []).map((row) =>
-    arrayToLength(row, width)
-  );
-
-  return cleanSizeMatrix.reduce(
-    (acc, rows) => [...acc, ...rows.map((value) => value)],
-    []
-  );
-};
-
 const wait = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 module.exports = {
-  matrixToArray,
+  arrayToLength,
   wait,
 };
