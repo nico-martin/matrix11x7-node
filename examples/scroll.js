@@ -1,16 +1,10 @@
-//const DisplayController = require("../src/display");
+const DisplayController = require("../src/display");
 const { matrixToArray } = require("../src/helpers");
 const fontToMatrix = require("../src/font");
 
 const matrix = fontToMatrix("Hello World!");
-//const pixelArray = matrixToArray(matrix).map((l) => (l === 255 ? 50 : 0));
-const pixelArray = matrixToArray([
-  [1, 2, 3, 4, 5],
-  [1, 2, 3, 4, 5],
-]);
-console.log(pixelArray);
+const pixelArray = matrixToArray(matrix).map((l) => (l === 255 ? 50 : 0));
 
-/*
 const init = async () => {
   try {
     const display = await DisplayController();
@@ -21,4 +15,3 @@ const init = async () => {
 };
 
 init();
-*/
