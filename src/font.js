@@ -1,6 +1,7 @@
 const defaultFont = require("./fonts/font5x7unicode");
 
 module.exports = fontToMatrix = (text, font = defaultFont) => {
+  font = font || defaultFont;
   let matrix = Array.from(Array(font.height).keys()).map(() => []);
 
   text.split("").map((char) => {
