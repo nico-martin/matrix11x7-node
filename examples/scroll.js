@@ -5,8 +5,9 @@ const font = require("../src/fonts/font5x7unicode");
 const init = async () => {
   try {
     const display = await DisplayController();
-    fontScroller(display, "HELLO WORLD!", {
+    fontScroller(display, "+++ Hello World +++", {
       font,
+      speed: 100,
     });
   } catch (e) {
     console.error(e);
