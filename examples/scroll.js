@@ -6,7 +6,7 @@ const {
 } = require("../src/matrix");
 const fontToMatrix = require("../src/font");
 
-const matrix = fontToMatrix("Oh my good how cool is that! It works!!!");
+const matrix = fontToMatrix("Hello World!");
 
 const init = async () => {
   try {
@@ -20,7 +20,7 @@ const init = async () => {
       ).map((l) => (l === 255 ? 50 : 0));
       display.show(pixelArray);
       position = position + 1;
-      position + 2 + 11 >= matrixLength && clearInterval(interval);
+      position + 11 + 11 >= matrixLength && clearInterval(interval);
     }, 100);
   } catch (e) {
     console.error(e);
