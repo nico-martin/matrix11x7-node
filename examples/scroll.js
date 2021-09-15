@@ -8,6 +8,8 @@ const fontToMatrix = require("../src/font");
 
 const matrix = fontToMatrix("Hello World!");
 
+const infinite = true;
+
 const init = async () => {
   try {
     const display = await DisplayController();
@@ -21,7 +23,11 @@ const init = async () => {
       display.show(pixelArray);
       position = position + 1;
       if (position - 2 >= matrixLength) {
-        clearInterval(interval);
+        if (infinite) {
+          position = 0;
+        } else {
+          clearInterval(interval);
+        }
       }
     }, 100);
   } catch (e) {
