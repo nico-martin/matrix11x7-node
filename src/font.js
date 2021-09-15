@@ -9,5 +9,12 @@ module.exports = fontToMatrix = (text, font = defaultFont) => {
     const characterMatrix = defaultFont.characters[code];
     matrix = matrix.map((row, index) => [...row, 0, ...characterMatrix[index]]);
   });
+
+  if (font.height === 5) {
+    const matrixSize = matrix[0].length;
+    const emptyRow = Array.from(Array(matrixSize).keys()).map(() => 0);
+    matrix = [emptyRow, ...matrix, emptyRow];
+  }
+
   return matrix;
 };
