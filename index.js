@@ -5,9 +5,11 @@ const fontScroller = require("./src/scrolling");
 module.exports = matrix11x7 = async () => {
   const display = await DisplayController();
   return {
-    basicMatrix: async (matrix, display = null) =>
-      await display.show(matrixToArray(matrix)),
-    scrollText: async (text, config = {}) =>
-      await fontScroller(display, text, config),
+    basicMatrix: async (matrix, display = null) => {
+      display.show(matrixToArray(matrix));
+    },
+    scrollText: async (text, config = {}) => {
+      fontScroller(display, text, config);
+    },
   };
 };
