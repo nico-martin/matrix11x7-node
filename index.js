@@ -6,7 +6,7 @@ module.exports = matrix11x7 = async () => {
   const display = await DisplayController();
   console.log("display", display);
   return {
-    basicMatrix: async (matrix, display = null) => {
+    basicMatrix: async (matrix) => {
       display.show(matrixToArray(matrix));
     },
     scrollText: async (text, config = {}) => {
