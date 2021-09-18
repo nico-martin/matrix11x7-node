@@ -2,25 +2,16 @@ const DisplayController = require("./src/display");
 const { matrixToArray } = require("./src/matrix");
 const fontScroller = require("./src/scrolling");
 
-const basicMatrix = async (matrix) => {
+module.exports = matrix11x7 = async () => {
   try {
     const display = await DisplayController();
-    await display.show(matrixToArray(matrix));
+    return {
+      basicMatrix: async (matrix, display = null) =>
+        await display.show(matrixToArray(matrix)),
+      scrollText: async (text, config = {}) =>
+        await fontScroller(display, text, config),
+    };
   } catch (e) {
     console.error(e);
   }
-};
-
-const scrollText = async (text, config = {}) => {
-  try {
-    const display = await DisplayController();
-    fontScroller(display, text, config);
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-module.exports = {
-  basicMatrix,
-  scrollText,
 };
