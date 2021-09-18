@@ -39,104 +39,100 @@ const pixelArrayToPosition = [
 module.exports = async (defaultAddress = 0x75) => {
   let currentFrame = 0;
 
-  try {
-    const bus = i2cBus.openSync(1);
+  const bus = i2cBus.openSync(1);
 
-    const write = async (addr, cmd, data) =>
-      new Promise((resolve, reject) => {
-        const buffer = Buffer.from(data);
-        bus.writeI2cBlock(addr, cmd, buffer.length, buffer, (error) => {
-          if (error !== null) {
-            console.log("I2C write error: ", error);
-            reject();
-          } else {
-            resolve();
-          }
-        });
+  const write = async (addr, cmd, data) =>
+    new Promise((resolve, reject) => {
+      const buffer = Buffer.from(data);
+      bus.writeI2cBlock(addr, cmd, buffer.length, buffer, (error) => {
+        if (error !== null) {
+          console.log("I2C write error: ", error);
+          reject();
+        } else {
+          resolve();
+        }
       });
+    });
 
-    const setBank = async (bank) =>
-      await write(defaultAddress, bankAddress, [bank]);
+  const setBank = async (bank) =>
+    await write(defaultAddress, bankAddress, [bank]);
 
-    const setRegister = async (bank, register, value) => {
-      await setBank(bank);
-      await write(defaultAddress, register, [value]);
-    };
+  const setRegister = async (bank, register, value) => {
+    await setBank(bank);
+    await write(defaultAddress, register, [value]);
+  };
 
-    const sleep = async (sleep) =>
-      await setRegister(configBank, shutdownRegister, !sleep);
+  const sleep = async (sleep) =>
+    await setRegister(configBank, shutdownRegister, !sleep);
 
-    const reset = async () => {
-      await sleep(true);
-      await sleep(false);
-    };
+  const reset = async () => {
+    await sleep(true);
+    await sleep(false);
+  };
 
-    const setFrame = async (frameId) =>
-      await setRegister(configBank, frameRegister, frameId);
+  const setFrame = async (frameId) =>
+    await setRegister(configBank, frameRegister, frameId);
 
-    const createChunks = (array, chunkSize) =>
-      array.reduce((all, one, i) => {
-        const ch = Math.floor(i / chunkSize);
-        all[ch] = [].concat(all[ch] || [], one);
-        return all;
-      }, []);
+  const createChunks = (array, chunkSize) =>
+    array.reduce((all, one, i) => {
+      const ch = Math.floor(i / chunkSize);
+      all[ch] = [].concat(all[ch] || [], one);
+      return all;
+    }, []);
 
-    // init
+  // init
 
-    await reset();
-    await setBank(configBank);
-    await write(defaultAddress, modeRegister, [pictureMode]);
-    await write(defaultAddress, audiosyncRegister, [0]);
+  await reset();
+  await setBank(configBank);
+  await write(defaultAddress, modeRegister, [pictureMode]);
+  await write(defaultAddress, audiosyncRegister, [0]);
 
-    await setBank(0);
-    await write(defaultAddress, 0x00, validLEDs);
-    await setBank(1);
-    await write(defaultAddress, 0x00, validLEDs);
-    await setBank(0);
+  await setBank(0);
+  await write(defaultAddress, 0x00, validLEDs);
+  await setBank(1);
+  await write(defaultAddress, 0x00, validLEDs);
+  await setBank(0);
 
-    // show
+  // show
 
-    const show = async (pixelArray) => {
-      let output = new Array(161);
-      output.fill(0);
+  const show = async (pixelArray) => {
+    let output = new Array(161);
+    output.fill(0);
 
-      pixelArray.map(
-        (value, i) => (output[pixelArrayToPosition[i]] = ledGamma[value])
+    pixelArray.map(
+      (value, i) => (output[pixelArrayToPosition[i]] = ledGamma[value])
+    );
+
+    currentFrame = currentFrame === 0 ? 1 : 0;
+    await setBank(currentFrame);
+
+    let chunkSize = 32;
+    let chunks = createChunks(output, chunkSize);
+    //console.log("output", output);
+    let currentChunk = 0;
+
+    while (currentChunk < chunks.length - 1) {
+      await write(
+        defaultAddress,
+        colorOffset + currentChunk * chunkSize,
+        chunks[currentChunk]
       );
 
-      currentFrame = currentFrame === 0 ? 1 : 0;
-      await setBank(currentFrame);
+      currentChunk++;
+    }
+    await setFrame(currentFrame);
+  };
 
-      let chunkSize = 32;
-      let chunks = createChunks(output, chunkSize);
-      //console.log("output", output);
-      let currentChunk = 0;
+  // clear
 
-      while (currentChunk < chunks.length - 1) {
-        await write(
-          defaultAddress,
-          colorOffset + currentChunk * chunkSize,
-          chunks[currentChunk]
-        );
+  const clear = async () => {
+    let blanker = new Array(117);
+    blanker.fill(0);
+    await show(blanker);
+  };
 
-        currentChunk++;
-      }
-      await setFrame(currentFrame);
-    };
-
-    // clear
-
-    const clear = async () => {
-      let blanker = new Array(117);
-      blanker.fill(0);
-      await show(blanker);
-    };
-
-    return {
-      show,
-      clear,
-    };
-  } catch (e) {
-    throw e;
-  }
+  return {
+    show,
+    clear,
+  };
 };
