@@ -27,44 +27,43 @@ const init = async () => {
     const instance = await matrix11x7();
     setInterval(async () => {
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(300);
+      await wait(400);
 
       instance.basicMatrix(matrix.on);
-      await wait(300);
+      await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(300);
+      await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(300);
+      await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
 
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(200);
       instance.basicMatrix(matrix.off);
-      await wait(500);
-    }, 4200);
+    }, 5000);
   } catch (e) {
     console.error(e);
   }
