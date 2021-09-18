@@ -6,8 +6,12 @@ module.exports = fontToMatrix = (text, font = defaultFont) => {
 
   text.split("").map((char) => {
     const code = char.charCodeAt(0);
-    const characterMatrix = font.characters[code];
-    matrix = matrix.map((row, index) => [...row, 0, ...characterMatrix[index]]);
+    const characterMatrix = font.characters[code] || [];
+    matrix = matrix.map((row, index) => [
+      ...row,
+      0,
+      ...(characterMatrix[index] || []),
+    ]);
   });
 
   if (font.height === 5) {
