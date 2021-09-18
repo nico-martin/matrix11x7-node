@@ -37,25 +37,21 @@ const init = async () => {
       instance.basicMatrix(matrix.on);
       await wait(100);
       instance.basicMatrix(matrix.off);
-      await wait(100);
-
-      instance.basicMatrix(matrix.on);
-      await wait(500);
-      instance.basicMatrix(matrix.off);
-      await wait(500);
-      instance.basicMatrix(matrix.on);
-      await wait(500);
-      instance.basicMatrix(matrix.off);
-      await wait(500);
-      instance.basicMatrix(matrix.on);
-      await wait(500);
-      instance.basicMatrix(matrix.off);
       await wait(500);
 
       instance.basicMatrix(matrix.on);
-      await wait(100);
+      await wait(500);
+      instance.basicMatrix(matrix.off);
+      await wait(500);
+      instance.basicMatrix(matrix.on);
+      await wait(500);
+      instance.basicMatrix(matrix.off);
+      await wait(500);
+      instance.basicMatrix(matrix.on);
+      await wait(500);
       instance.basicMatrix(matrix.off);
       await wait(100);
+
       instance.basicMatrix(matrix.on);
       await wait(100);
       instance.basicMatrix(matrix.off);
@@ -64,6 +60,10 @@ const init = async () => {
       await wait(100);
       instance.basicMatrix(matrix.off);
       await wait(100);
+      instance.basicMatrix(matrix.on);
+      await wait(100);
+      instance.basicMatrix(matrix.off);
+      await wait(500);
     }, 4200);
   } catch (e) {
     console.error(e);
