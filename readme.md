@@ -12,14 +12,14 @@ this will only work on a linux system with an i2c bus. on raspbian i2c is not en
 
 ## Usage
 
-This library provides basicly two methods. `basicMatrix`, that allows you to display a pixel matrix (prefferably 11x7 pixels) and `scrollText`, that let's you write a string that will then scroll through the screen.
+This library provides a method to instanciate a display. On that display, two methods can be used: `basicMatrix`, that allows you to display a pixel matrix (prefferably 11x7 pixels) and `scrollText`, that let's you write a string that will then scroll through the screen.
 
 ### Basic Matrix
 ```javascript
-const { basicMatrix } = require('matrix11x7');
+const matrix11x7 = require('matrix11x7');
 
 // a 7 by 11 pixel matrix where each value is an integer between 0 an 255 (intensity)
-const matrix = [
+const matrixHeart = [
   [0, 0, 0, 0, 50, 0, 50, 0, 0, 0, 0],
   [0, 0, 0, 50, 0, 50, 0, 50, 0, 0, 0],
   [0, 0, 50, 0, 0, 0, 0, 0, 50, 0, 0],
@@ -29,17 +29,35 @@ const matrix = [
   [0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0],
 ];
 
-basicMatrix(matrix);
+const init = async () => {
+  try {
+    const instance = await matrix11x7();
+    instance.basicMatrix(matrixHeart);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+init();
 ```
 
 ### Scrolling Text
 ```javascript
-const { scrollText } = require('matrix11x7');
+const matrix11x7 = require('matrix11x7');
 
-scrollText('Hello World', {
-  speed: 80, // optional - milliseconds between each step
-  infinite: true, // optional - wether it should stop after one run or keep running
-  font: null, // optional - the font you want to use (see src/fonts/ as an example)
-  intensity: 50, // optional - an integer between 0 an 255 (intensity)
-});
+const init = async () => {
+  try {
+    const instance = await matrix11x7();
+    instance.scrollText("Hello World", {
+      speed: 80, // optional - milliseconds between each step
+      infinite: true, // optional - wether it should stop after one run or keep running
+      font: null, // optional - the font you want to use (see src/fonts/ as an example)
+      intensity: 50, // optional - an integer between 0 an 255 (intensity)
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+init();
 ```

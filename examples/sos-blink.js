@@ -42,15 +42,15 @@ const init = async () => {
       instance.basicMatrix(matrix.on);
       await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(200);
+      await wait(300);
       instance.basicMatrix(matrix.on);
       await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(200);
+      await wait(300);
       instance.basicMatrix(matrix.on);
       await wait(400);
       instance.basicMatrix(matrix.off);
-      await wait(200);
+      await wait(300);
 
       instance.basicMatrix(matrix.on);
       await wait(200);
@@ -63,7 +63,7 @@ const init = async () => {
       instance.basicMatrix(matrix.on);
       await wait(200);
       instance.basicMatrix(matrix.off);
-    }, 5000);
+    }, 6000);
   } catch (e) {
     console.error(e);
   }
