@@ -12,6 +12,7 @@ const matrix = [
 
 const init = async () => {
   const instance = await matrix11x7();
+  console.log("set up");
   instance.basicMatrix(matrix);
 };
 
