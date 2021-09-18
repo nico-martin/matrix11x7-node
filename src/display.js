@@ -120,7 +120,7 @@ module.exports = async (defaultAddress = 0x75) => {
 
       currentChunk++;
     }
-    await setFrame(currentFrame);
+    return await setFrame(currentFrame);
   };
 
   // clear
@@ -128,7 +128,7 @@ module.exports = async (defaultAddress = 0x75) => {
   const clear = async () => {
     let blanker = new Array(117);
     blanker.fill(0);
-    await show(blanker);
+    return await show(blanker);
   };
 
   return {
