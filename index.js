@@ -4,7 +4,6 @@ const fontScroller = require("./src/scrolling");
 
 module.exports = matrix11x7 = async () => {
   const display = await DisplayController();
-  console.log("display", display);
   return {
     basicMatrix: async (matrix) => {
       display.show(matrixToArray(matrix));

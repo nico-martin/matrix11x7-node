@@ -37,18 +37,18 @@ const init = async () => {
       instance.basicMatrix(matrix.on);
       await wait(100);
       instance.basicMatrix(matrix.off);
-      await wait(500);
+      await wait(300);
 
       instance.basicMatrix(matrix.on);
-      await wait(500);
+      await wait(300);
       instance.basicMatrix(matrix.off);
-      await wait(500);
+      await wait(100);
       instance.basicMatrix(matrix.on);
-      await wait(500);
+      await wait(300);
       instance.basicMatrix(matrix.off);
-      await wait(500);
+      await wait(100);
       instance.basicMatrix(matrix.on);
-      await wait(500);
+      await wait(300);
       instance.basicMatrix(matrix.off);
       await wait(100);
 
